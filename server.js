@@ -3,8 +3,11 @@ import express from "express";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 import { MongoClient, ServerApiVersion } from "mongodb";
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const server = express();
 server.use(require("body-parser").json());
+server.use(express.static("public"));
 
 let uri = "mongodb://127.0.0.1:27017/";
 const client = new MongoClient(uri, {
@@ -61,6 +64,14 @@ async function addDataToDataBase(destinationData, myColl) {
 //       });
 
 //Express server setup
+
+server.get("/", (req, res) => {
+  res.sendFile("pages/index.html", { root: __dirname });
+});
+
+server.get("/form", (req, res) => {
+  res.sendFile("pages/form.html", { root: __dirname });
+});
 
 server.post("/api/addDestination", (req, res) => {
   res.json({ message: req.body });
