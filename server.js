@@ -1,9 +1,11 @@
-//Server & Database setup
-const http = require("http");
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const { fileURLToPath } = require("url");
-const hostname = "127.0.0.1";
-const port = 2000;
+//Database setup
+import express from "express";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+import { MongoClient, ServerApiVersion } from "mongodb";
+const server = express();
+server.use(require("body-parser").json());
+
 let uri = "mongodb://127.0.0.1:27017/";
 const client = new MongoClient(uri, {
   serverApi: {
@@ -52,30 +54,18 @@ async function addDataToDataBase(destinationData, myColl) {
   return result;
 }
 
-//Create server
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  if (req.method === "POST") {
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString();
-    });
+// Connect to database
+//       connectToDB(parsedBody, res).catch((error) => {
+//         //Here we call the ConnectToDB function if we wanna post something. and we set up an error catcher
+//         console.error(error);
+//       });
 
-    req.on("end", () => {
-      const parsedBody = JSON.parse(body);
-      connectToDB(parsedBody, res).catch((error) => {
-        //Here we call the ConnectToDB function if we wanna post something. and we set up an error catcher
-        console.error(error);
-        res.writeHead(500, { "Content-Type": "text-plain" });
-        res.end("Internal Server Error");
-      });
-    });
-  } else {
-    res.end("Test");
-  }
+//Express server setup
+
+server.post("/api/addDestination", (req, res) => {
+  res.json({ message: req.body });
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(3000, () => {
+  console.log(`Example app listening on port 3000`);
 });
