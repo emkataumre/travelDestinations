@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 :root {
-  --primary: #FF5722;
+  --primary: #ff5722;
 }
 
 body {
-  color: #3C3D3F;
+  color: #3c3d3f;
   background-color: white;
   margin: 0;
   padding: 0;
@@ -14,7 +14,13 @@ body {
   overflow-x: hidden;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
   font-weight: 400;
@@ -43,9 +49,8 @@ h3 {
   font-size: 20px;
 }
 
-
 h6 {
-  font-size: 10.24px
+  font-size: 10.24px;
 }
 
 header {
@@ -59,8 +64,6 @@ header {
   font-weight: 500;
 }
 
-
-
 /* Main */
 
 main {
@@ -71,7 +74,8 @@ main {
   margin-top: 4rem;
 }
 
-.destinations, .destinationForm {
+.destinations,
+.destinationForm {
   max-width: 478px;
   display: flex;
   flex-direction: column;
@@ -83,7 +87,6 @@ main {
 .destinationContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
   height: 168px;
   padding-bottom: 3rem;
@@ -124,7 +127,7 @@ main {
 }
 
 .destinationLocationLink {
-  color: #94909A;
+  color: #94909a;
   text-decoration: underline;
 }
 
@@ -134,7 +137,8 @@ main {
   gap: 1rem;
 }
 
-.mainBtn, .secondaryBtn {
+.mainBtn,
+.secondaryBtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,10 +149,9 @@ main {
   padding: 0.75rem;
   cursor: pointer;
   border-radius: 10px;
-
 }
 
-.mainBtn {  
+.mainBtn {
   background-color: #03a9f4;
   border: none;
 }
@@ -174,9 +177,11 @@ main {
   padding-bottom: 4rem;
 }
 
-
-
-
+#template {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
 
 /* Form */
 

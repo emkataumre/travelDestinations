@@ -5,7 +5,6 @@ const arrivalDateInput = document.querySelector("#arrival-date");
 const departureDateInput = document.querySelector("#departure-date");
 const imageInput = document.querySelector("#image-upload");
 const descriptionInput = document.querySelector("#description");
-const saveDestination = document.querySelector("#save-destination");
 
 const addDestination = async (event) => {
   event.preventDefault();
@@ -54,17 +53,17 @@ const getDestinations = async () => {
   const response = await fetch("/api/getDestinations");
   const destinations = await response.json();
   console.log(destinations);
-  return destinations;
+  return destinations.destinations;
 };
 
-(async () => {
-  const destinations = await getDestinations();
+if (window.location.pathname === "/") {
+  (async () => {
+    const destinations = await getDestinations();
 
-  
-  destinations.map((destination) => {
-    const section = document.createElement("section");
-    section.classList.add("destinationContainer");
-    section.innerHTML = `<div
+    destinations.map((destination) => {
+      const section = document.createElement("section");
+      section.classList.add("destinationContainer");
+      section.innerHTML = `<div
     class="destinationImage"
     style="background-image: url('img/japan.avif');"
     ></div>
@@ -78,18 +77,18 @@ const getDestinations = async () => {
         />
       ${destination.country.toUpperCase()}
     </div>
-    <a class="destinationLocationLink" target="_blank" href="${destination.link}">View on Google Maps</a>
+    <a class="destinationLocationLink" target="_blank" href="${
+      destination.link
+    }">View on Google Maps</a>
   </h6>
   <div class="destinationInformationText">
     <h2>${destination.title}</h2>
     <h6>
-      <b>${destination.arrivalDate} - ${departureDate}</b><br />
+      <b>${destination.arrivalDate} - ${destination.departureDate}</b><br />
       ${destination.description}
     </h6>
   </div>`;
-    document.querySelector("main").appendChild(section);
-  });
-})();
-
-
-saveDestination.addEventListener("click", addDestination);
+      document.querySelector("#template").appendChild(section);
+    });
+  })();
+}
