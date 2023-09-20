@@ -51,16 +51,45 @@ async function saveToDatabase(obj) {
 }
 
 const getDestinations = async () => {
-  // TODO: Implement endpoint
   const response = await fetch("/api/getDestinations");
   const destinations = await response.json();
+  console.log(destinations);
   return destinations;
 };
 
-// const destinations = await getDestinations();
+(async () => {
+  const destinations = await getDestinations();
 
-// destinations.map((destination) => {
-// // TODO
-// });
+  
+  destinations.map((destination) => {
+    const section = document.createElement("section");
+    section.classList.add("destinationContainer");
+    section.innerHTML = `<div
+    class="destinationImage"
+    style="background-image: url('img/japan.avif');"
+    ></div>
+  <div class="destinationInformation">
+  <h6 class="destinationLocationContainer">
+    <div class="destinationLocationName">
+      <img
+        src="img/icon_location.svg"
+        alt="Location"
+        class="destinationLocationPin"
+        />
+      ${destination.country.toUpperCase()}
+    </div>
+    <a class="destinationLocationLink" target="_blank" href="${destination.link}">View on Google Maps</a>
+  </h6>
+  <div class="destinationInformationText">
+    <h2>${destination.title}</h2>
+    <h6>
+      <b>${destination.arrivalDate} - ${departureDate}</b><br />
+      ${destination.description}
+    </h6>
+  </div>`;
+    document.querySelector("main").appendChild(section);
+  });
+})();
+
 
 saveDestination.addEventListener("click", addDestination);
