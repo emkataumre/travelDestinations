@@ -1,6 +1,4 @@
 //Variables
-const url = "http://127.0.0.1:3000/";
-
 const countryInput = document.querySelector("#country");
 const titleInput = document.querySelector("#title");
 const linkInput = document.querySelector("#link");
@@ -49,10 +47,14 @@ async function addDestination(event) {
 }
 
 async function saveToDatabase(obj) {
-  const response = await fetch(url, {
+  console.log("obj", obj);
+  const response = await fetch(`http://localhost:3000/api/addDestination`, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
   });
   console.log(response);
+  document.querySelector("form").reset();
+
   return response;
 }
