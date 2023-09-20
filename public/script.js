@@ -1,4 +1,3 @@
-//Variables
 const countryInput = document.querySelector("#country");
 const titleInput = document.querySelector("#title");
 const linkInput = document.querySelector("#link");
@@ -9,8 +8,10 @@ const descriptionInput = document.querySelector("#description");
 const saveDestination = document.querySelector("#save-destination");
 
 saveDestination.addEventListener("click", addDestination);
-async function addDestination(event) {
+
+const addDestination = async (event) => {
   event.preventDefault();
+
   const country = countryInput.value;
   const title = titleInput.value;
   const link = linkInput.value;
@@ -37,18 +38,10 @@ async function addDestination(event) {
     //Append New Elemnts to the first page
     console.log("Successfully appended docs");
   }
-  if (response.status > 499) {
-    alert("Server not working");
-  } else if (response.status > 399) {
-    alert("User error");
-  } else {
-    console.log("all is good");
-  }
 }
 
 async function saveToDatabase(obj) {
-  console.log("obj", obj);
-  const response = await fetch(`http://localhost:3000/api/addDestination`, {
+  const response = await fetch('api/addDestination', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
@@ -58,3 +51,16 @@ async function saveToDatabase(obj) {
 
   return response;
 }
+
+const getDestinations = async () => {
+  // TODO: Implement endpoint
+  const response = await fetch("/api/getDestinations");
+  const destinations = await response.json();
+  return destinations;
+};
+
+const destinations = await getDestinations();
+
+destinations.map((destination) => {
+// TODO
+});

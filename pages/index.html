@@ -6,11 +6,8 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
     <title>Travel Destinations</title>
+    <script src="script.js" defer></script>
   </head>
   <body>
     <header>
@@ -18,40 +15,91 @@
       <p>Travel Destinations</p>
     </header>
     <main>
+      <div class="destinations">
       <h1>Destinations</h1>
-
-      <section>
+      <section class="destinationContainer">
         <div
           class="destinationImage"
-          style="background-image: url('img/japan.avif')"
-        >
-          fdsfsd
-        </div>
-        <img src="" alt="Japan" />
-        <div>
-          <div class="addGap">
+          style="background-image: url('img/japan.avif');"
+          ></div>
+        <div class="destinationInformation">
+        <h6 class="destinationLocationContainer">
+          <div class="destinationLocationName">
             <img
               src="img/icon_location.svg"
               alt="Location"
-              class="iconSize"
-            /><span>Location</span><a href="">View on Google maps</a>
+              class="destinationLocationPin"
+              />
+            JAPAN
           </div>
-          <h2>Destination title</h2>
-          <span>period from - period to</span>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque
-            ipsam eaque dolor quae optio sed accusantium vitae veritatis
-            voluptatum quaerat dolorem reprehenderit, corrupti nobis rem
-            laudantium minus adipisci repellendus vero!
-          </p>
+          <a class="destinationLocationLink" target="_blank" href="">View on Google Maps</a>
+        </h6>
+        <div class="destinationInformationText">
+          <h2>Mount Fuiji</h2>
+          <h6>
+            <b>12 Jan, 2021 - 24 Jan, 2021</b><br />
+            Mount Fuji is the tallest mountain in Japan, standing at 3,776 meters (12,380 feet). Mount Fuji is the single most popular tourist site in Japan, for both Japanese and foreign tourists.
+          </h6>
         </div>
       </section>
-
-      <a href="form" class="mainBtn">
-        <img src="img/icon_plus.svg" alt="" />
-        Add entry
-      </a>
+      <section class="destinationContainer">
+        <div
+          class="destinationImage"
+          style="background-image: url('img/japan.avif');"
+          ></div>
+        <div class="destinationInformation">
+        <h6 class="destinationLocationContainer">
+          <div class="destinationLocationName">
+            <img
+              src="img/icon_location.svg"
+              alt="Location"
+              class="destinationLocationPin"
+              />
+            JAPAN
+          </div>
+          <a class="destinationLocationLink" target="_blank" href="">View on Google Maps</a>
+        </h6>
+        <div class="destinationInformationText">
+          <h2>Mount Fuiji</h2>
+          <h6>
+            <b>12 Jan, 2021 - 24 Jan, 2021</b><br />
+            Mount Fuji is the tallest mountain in Japan, standing at 3,776 meters (12,380 feet). Mount Fuji is the single most popular tourist site in Japan, for both Japanese and foreign tourists.
+          </h6>
+        </div>
+      </section>
+      <section class="destinationContainer">
+        <div
+          class="destinationImage"
+          style="background-image: url('img/japan.avif');"
+          ></div>
+        <div class="destinationInformation">
+        <h6 class="destinationLocationContainer">
+          <div class="destinationLocationName">
+            <img
+              src="img/icon_location.svg"
+              alt="Location"
+              class="destinationLocationPin"
+              />
+            JAPAN
+          </div>
+          <a class="destinationLocationLink" target="_blank" href="">View on Google Maps</a>
+        </h6>
+        <div class="destinationInformationText">
+          <h2>Mount Fuiji</h2>
+          <h6>
+            <b>12 Jan, 2021 - 24 Jan, 2021</b><br />
+            Mount Fuji is the tallest mountain in Japan, standing at 3,776 meters (12,380 feet). Mount Fuji is the single most popular tourist site in Japan, for both Japanese and foreign tourists.
+          </h6>
+        </div>
+      </section>
+      <section class="buttonContainer">
+        <a href="form">
+          <button class="mainBtn">
+            <img src="img/icon_plus.svg" alt="" />
+            <h3>Add entry</h3>
+          </button>
+        </a>
+      </section>
     </main>
-    <script src="script.js"></script>
   </body>
 </html>

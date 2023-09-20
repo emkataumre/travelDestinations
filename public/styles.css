@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 :root {
   --primary: #FF5722;
 }
-
 
 body {
   color: #3C3D3F;
@@ -10,6 +11,17 @@ body {
   padding: 0;
   font-family: "Inter";
   font-weight: 400;
+  overflow-x: hidden;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
 }
 
 h1 {
@@ -19,6 +31,21 @@ h1 {
   text-decoration-color: var(--primary);
   text-underline-offset: 1rem;
   text-align: center;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 25px;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+
+h6 {
+  font-size: 10.24px
 }
 
 header {
@@ -34,20 +61,130 @@ header {
 
 
 
+/* Main */
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+}
 
-.destinationForm {
+.destinations, .destinationForm {
+  max-width: 478px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 3rem;
 }
+
+.destinationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 168px;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--primary);
+}
+
+.destinationImage {
+  height: 100%;
+  width: 125px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+}
+
+.destinationInformation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.destinationLocationContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.destinationLocationName {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  letter-spacing: 0.1rem;
+}
+
+.destinationLocationPin {
+  height: 9.55px;
+}
+
+.destinationLocationLink {
+  color: #94909A;
+  text-decoration: underline;
+}
+
+.destinationInformationText {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mainBtn, .secondaryBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 108px;
+  width: fit-content;
+  color: #fff;
+  gap: 0.2rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 10px;
+
+}
+
+.mainBtn {  
+  background-color: #03a9f4;
+  border: none;
+}
+
+.secondaryBtn {
+  color: #03a9f4;
+  background-color: transparent;
+  border: 2px solid #03a9f4;
+}
+
+.secondaryBtn:hover {
+  background-color: #e1f6ff;
+}
+
+.mainBtn:hover {
+  background-color: #4cc4fc;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 4rem;
+}
+
+
+
+
+
+/* Form */
 
 .destinationForm div {
   margin-bottom: 24px;
 }
 
-.destinationForm div:not(:last-child) {
+.destinationForm div {
   display: flex;
   flex-direction: column;
 }
@@ -92,88 +229,6 @@ header {
   line-height: 40px;
 }
 
-.destinationForm div button:first-child {
+.destinationForm div button {
   margin-right: 10rem;
-}
-body * {
-  font-family: "Inter", sans-serif;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 168px;
-  /* gap: 2rem;
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
-  border-bottom: 2px solid orange;
-  overflow: hidden; */
-}
-
-.destinationImage {
-  height: 100%;
-  width: 125px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 5px;
-}
-
-svg {
-  color: #fff;
-}
-.iconSize {
-  width: 20px;
-}
-.mainBtn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
-  background-color: #03a9f4;
-  border-radius: 10px;
-  padding: 0.75rem;
-  border: none;
-  font-size: medium;
-  color: #fff;
-  cursor: pointer;
-}
-
-button {
-  width: 123px;
-}
-
-.secondaryBtn {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 0.75rem;
-  border: 2px solid #03a9f4;
-  font-size: medium;
-  color: #03a9f4;
-  cursor: pointer;
-}
-
-.secondaryBtn:hover {
-  background-color: #e1f6ff;
-}
-
-.mainBtn:hover {
-  background-color: #4cc4fc;
-}
-
-.btnContainer {
-  display: flex;
-}
-
-@media only screen and (max-width: 700px) {
-  section {
-    flex-direction: column;
-  }
 }
