@@ -7,8 +7,6 @@ const imageInput = document.querySelector("#image-upload");
 const descriptionInput = document.querySelector("#description");
 const saveDestination = document.querySelector("#save-destination");
 
-saveDestination.addEventListener("click", addDestination);
-
 const addDestination = async (event) => {
   event.preventDefault();
 
@@ -38,10 +36,10 @@ const addDestination = async (event) => {
     //Append New Elemnts to the first page
     console.log("Successfully appended docs");
   }
-}
+};
 
 async function saveToDatabase(obj) {
-  const response = await fetch('api/addDestination', {
+  const response = await fetch("api/addDestination", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
@@ -59,8 +57,10 @@ const getDestinations = async () => {
   return destinations;
 };
 
-const destinations = await getDestinations();
+// const destinations = await getDestinations();
 
-destinations.map((destination) => {
-// TODO
-});
+// destinations.map((destination) => {
+// // TODO
+// });
+
+saveDestination.addEventListener("click", addDestination);

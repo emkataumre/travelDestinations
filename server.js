@@ -25,11 +25,8 @@ const db = client.db("travelDestination");
 const destinationCollection = db.collection("destinations");
 
 server.get("/", async (req, res) => {
-  const result = await destinationCollection.find().toArray();
-  console.log(result);
   //__dirname means look from directory root
   res.sendFile("pages/index.html", { root: __dirname });
-  res.status(200).json(result);
 });
 
 server.get("/form", (req, res) => {
@@ -41,6 +38,11 @@ server.post("/api/addDestination", async (req, res) => {
   const result = await destinationCollection.insertOne(destination);
   console.log(result.insertedId.toString());
   res.status(201).json({ message: destination });
+});
+
+server.get("/api/getDestinations", async (req, res) => {
+  const result = await destinationCollection.find().toArray();
+  res.status(200).json({ destinations: result });
 });
 
 server.listen(3000, () => {
