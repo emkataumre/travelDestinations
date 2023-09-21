@@ -32,7 +32,7 @@ server.get("/", async (req, res) => {
 server.get("/form", (req, res) => {
   res.sendFile("pages/form.html", { root: __dirname });
 });
-
+//should be addDestinations in order to follow REST standarts
 server.post("/api/addDestination", async (req, res) => {
   const destination = req.body;
   const result = await destinationCollection.insertOne(destination);
@@ -42,7 +42,7 @@ server.post("/api/addDestination", async (req, res) => {
 
 server.get("/api/getDestinations", async (req, res) => {
   const result = await destinationCollection.find().toArray();
-  res.status(200).json({ destinations: result });
+  res.status(200).json(result);
 });
 
 server.listen(3000, () => {

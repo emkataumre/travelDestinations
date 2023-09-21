@@ -6,6 +6,15 @@ const departureDateInput = document.querySelector("#departure-date");
 const imageInput = document.querySelector("#image-upload");
 const descriptionInput = document.querySelector("#description");
 
+//we need 2 additional functions in order to convert img to sting and the opposite
+const imageToBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (e) => reject(e);
+  });
+
 const addDestination = async (event) => {
   event.preventDefault();
 
@@ -14,24 +23,24 @@ const addDestination = async (event) => {
   const link = linkInput.value;
   const arrivalDate = arrivalDateInput.value;
   const departureDate = departureDateInput.value;
-  const image = imageInput.value;
+  const image = imageInput.files[0];
   const description = descriptionInput.value;
-
+  const base64 = await imageToBase64(image);
   const obj = {
     country,
     title,
     link,
     arrivalDate,
     departureDate,
-    image,
+    image: base64,
     description,
   };
-
   const response = await saveToDatabase(obj);
-
+  console.log("obj", obj);
   if (response.ok) {
     const body = await response.json();
     console.log(body);
+    console.log("our object:", obj);
     //Append New Elemnts to the first page
     console.log("Successfully appended docs");
   }
@@ -53,7 +62,8 @@ const getDestinations = async () => {
   const response = await fetch("/api/getDestinations");
   const destinations = await response.json();
   console.log(destinations);
-  return destinations.destinations;
+
+  return destinations;
 };
 
 if (window.location.pathname === "/") {
@@ -65,7 +75,7 @@ if (window.location.pathname === "/") {
       section.classList.add("destinationContainer");
       section.innerHTML = `<div
     class="destinationImage"
-    style="background-image: url('img/japan.avif');"
+    style="background-image: url(${destination.image});"
     ></div>
   <div class="destinationInformation">
   <h6 class="destinationLocationContainer">
