@@ -20,12 +20,6 @@ const Destination = new Schema({
   arrivalDate: {
     type: Date,
     required: true,
-    validate: {
-      validator: (value) => {
-        return value < this.departureDate;
-      },
-      message: "Arrival date must be before departure date",
-    },
   },
   departureDate: {
     type: Date,

@@ -47,7 +47,7 @@ const addDestination = async (event) => {
 };
 
 async function saveToDatabase(obj) {
-  const response = await fetch("api/addDestination", {
+  const response = await fetch("/destination", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
@@ -59,11 +59,11 @@ async function saveToDatabase(obj) {
 }
 
 const getDestinations = async () => {
-  const response = await fetch("/api/getDestinations");
-  const destinations = await response.json();
-  console.log(destinations);
+  const response = await fetch("/destinations");
+  const result = await response.json();
+  console.log(result);
 
-  return destinations;
+  return result;
 };
 
 if (window.location.pathname === "/") {
