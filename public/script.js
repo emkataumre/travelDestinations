@@ -1,70 +1,12 @@
-const countryInput = document.querySelector("#country");
-const titleInput = document.querySelector("#title");
-const linkInput = document.querySelector("#link");
-const arrivalDateInput = document.querySelector("#arrival-date");
-const departureDateInput = document.querySelector("#departure-date");
-const imageInput = document.querySelector("#image-upload");
-const descriptionInput = document.querySelector("#description");
+import { getDestinations } from "./api.js";
+import { addDestination } from "./utils.js";
+const saveBtn = document.querySelector("#mainBtn");
 
-//we need 2 additional functions in order to convert img to sting and the opposite
-const imageToBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (e) => reject(e);
-  });
-
-const addDestination = async (event) => {
-  event.preventDefault();
-
-  const country = countryInput.value;
-  const title = titleInput.value;
-  const link = linkInput.value;
-  const arrivalDate = arrivalDateInput.value;
-  const departureDate = departureDateInput.value;
-  const image = imageInput.files[0];
-  const description = descriptionInput.value;
-  const base64 = await imageToBase64(image);
-  const obj = {
-    country,
-    title,
-    link,
-    arrivalDate,
-    departureDate,
-    image: base64,
-    description,
-  };
-  const response = await saveToDatabase(obj);
-  console.log("obj", obj);
-  if (response.ok) {
-    const body = await response.json();
-    console.log(body);
-    console.log("our object:", obj);
-    //Append New Elemnts to the first page
-    console.log("Successfully appended docs");
-  }
-};
-
-async function saveToDatabase(obj) {
-  const response = await fetch("/destination", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(obj),
-  });
-  console.log(response);
-  document.querySelector("form").reset();
-
-  return response;
+if (saveBtn) {
+  saveBtn.addEventListener("click", addDestination);
 }
 
-const getDestinations = async () => {
-  const response = await fetch("/destinations");
-  const result = await response.json();
-  console.log(result);
-
-  return result;
-};
+//we need 2 additional functions in order to convert img to sting and the opposite
 
 if (window.location.pathname === "/") {
   (async () => {

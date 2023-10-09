@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { countries } from "../utils.js";
+import { countries } from "../public/utils.js";
 
 const { Schema } = mongoose;
 
