@@ -16,9 +16,6 @@ export async function saveToDatabase(obj) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
   });
-  console.log(response);
-  document.querySelector("form").reset();
-
   return response;
 }
 

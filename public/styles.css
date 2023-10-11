@@ -310,3 +310,27 @@ button.createBtn {
 .destinationForm div button {
   margin-right: 10rem;
 }
+
+.destinationAdminButtons {
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.destinationAdminButtons button {
+  background-color: var(--primary);
+  color: white;
+  padding: 7px 10px;
+  font-size: medium;
+  border-radius: 10px;
+  min-width: 108px;
+  width: fit-content;
+  border: 1px solid transparent;
+}
+
+.destinationAdminButtons button:hover {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}

@@ -228,15 +228,67 @@ export const addDestination = async (event) => {
     description,
   };
   const response = await saveToDatabase(obj);
-  console.log("obj", obj);
+  const body = await response.json();
+  console.log(body);
   if (response.ok) {
-    const body = await response.json();
-    console.log(body);
-    console.log("our object:", obj);
-    //Append New Elemnts to the first page
-    console.log("Successfully appended docs");
+    window.location.href = "/";
+  } else {
+    alert(body.error);
   }
 };
+
+export async function updateDestination(id) {
+  const imagePath = document.querySelector("#image-upload").value;
+  let imageData;
+
+  if (imagePath) {
+    imageData = await imageToBase64(
+      document.querySelector("#image-upload").files[0]
+    );
+  } else {
+    const response = await (await fetch(`/api/destination/${id}`)).json();
+    imageData = response.image;
+  }
+
+  const response = await (
+    await fetch(`/api/destination/${id}`, {
+      // TODO BEARER AUTH
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        country: document.querySelector("#country").value,
+        title: document.querySelector("#title").value,
+        link: document.querySelector("#link").value,
+        arrivalDate: document.querySelector("#arrival-date").value,
+        departureDate: document.querySelector("#departure-date").value,
+        image: imageData,
+        description: document.querySelector("#description").value,
+      }),
+    })
+  ).json();
+
+  if (response.status === "Successful") {
+    window.location.href = "/";
+  } else {
+    alert("Failed to update...");
+  }
+}
+
+export async function deleteDestination(id) {
+  const response = await (
+    await fetch(`/api/destination/${id}`, {
+      // TODO BEARER AUTH
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+  ).json();
+
+  if (response.status === "Successful") {
+    window.location.href = "/";
+  } else {
+    alert("Failed to delete...");
+  }
+}
 
 export const imageToBase64 = (file) =>
   new Promise((resolve, reject) => {

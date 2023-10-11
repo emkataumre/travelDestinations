@@ -29,7 +29,6 @@ const strategy = new JwtStrategy(jwtOptions, async function (
   next
 ) {
   const user = await User.findOne({ _id: jwt_payload._id });
-  console.log("user found", user);
   if (user) {
     next(null, user);
   } else {
@@ -60,11 +59,11 @@ server.get("/create", (req, res) => {
 });
 
 server.get("/update", (req, res) => {
+  if (!req.query.id) return res.send("No id provided");
   res.sendFile("pages/update.html", { root: __dirname });
 });
 
 //Get
-
 server.get("/api/destinations", async (req, res) => {
   await Destination.find()
     .then((result) => {
@@ -79,17 +78,12 @@ server.get("/api/destinations", async (req, res) => {
 server.get("/api/destination/:id", async (req, res) => {
   await Destination.findOne({ _id: req.params.id }, req.body)
     .then((result) => {
-      console.log(result);
       res.status(200).json(result);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
-});
-
-server.listen(3000, () => {
-  console.log(`Listening on port 3000`);
 });
 
 //Post
@@ -99,7 +93,6 @@ server.post("/api/auth/login", async (req, res) => {
     .then(async (result) => {
       if (result.length !== 0) {
         //assign jwt token
-        console.log(result);
         if (await result.isValidPassword(req.body.password)) {
           const generatedToken = jwt.sign(
             { _id: result._id },
@@ -132,7 +125,6 @@ server.post("/api/auth/signup", async (req, res) => {
         insertedUser
           .save()
           .then((result) => {
-            console.log(result);
             res.status(201).json(insertedUser);
           })
           .catch((err) => {
@@ -162,37 +154,38 @@ server.post("/api/destination", async (req, res) => {
   insertedDestination
     .save()
     .then((result) => {
-      console.log(result);
-      res.status(201).json(result);
+      res.status(201).json({ status: "Success", result });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json({ status: "Failure", error: err.message });
     });
 });
 
 //Put
-
 server.put("/api/destination/:id", async (req, res) => {
-  await Destination.updateOne({ _id: req.params.id }, req.body)
+  Destination.updateOne({ _id: req.params.id }, req.body)
     .then((result) => {
-      console.log({ message: "Update successful", result });
+      res.status(201).json({ status: "Successful", result });
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).json({ status: "Failure", error: err.message });
     });
 });
 
 //Delete
-
 server.delete("/api/destination/:id", async (req, res) => {
   await Destination.deleteOne({ _id: req.params.id })
     .then((result) => {
-      console.log({ message: "Delete successful", result });
-      res.status(200).json(result);
+      res.status(201).json({ status: "Successful", result });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json({ status: "Failure", error: err.message });
     });
+});
+
+server.listen(3000, () => {
+  console.log(`Listening on port 3000`);
 });

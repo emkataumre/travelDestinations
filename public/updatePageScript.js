@@ -1,41 +1,22 @@
-const id = window.location.href.split("/")[4].split("/")[0];
+import { updateDestination } from "./utils.js";
+
+const updateBtn = document.querySelector("#updateBtn");
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
+
 (async () => {
-  //   const destination = await fetch(`/api/destination/${id}`, {
-  //     headers: { "Content-Type": "application/json" },
-  //   });
-  //   const response = destination.json();
-  //   console.log(response);
+  const destination = await (await fetch(`/api/destination/${id}`)).json();
+  document.querySelector("#country").value = destination.country;
+  document.querySelector("#title").value = destination.title;
+  document.querySelector("#link").value = destination.link;
+  document.querySelector("#arrival-date").value = destination.arrivalDate
+    .split("T")[0]
+    .replace(/\+/g, "");
+  document.querySelector("#departure-date").value = destination.departureDate
+    .split("T")[0]
+    .replace(/\+/g, "");
+  document.querySelector("#description").value = destination.description;
 })();
 
-async function updateDestination(destination) {
-  const response = await fetch(`/api/destination/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(destination),
-  });
-  console.log(response);
-  document.querySelector("form").reset();
-
-  return response;
-}
-
-// async function createUser(event) {
-//   event.preventDefault();
-//   if (
-//     document.querySelector("#password").value ===
-//     document.querySelector("#repeatPassword").value
-//   ) {
-//     const name = document.querySelector("#name").value;
-//     const password = document.querySelector("#password").value;
-
-//     const response = await fetch("/api/auth/signup", {
-//       method: "PUT",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({ name, password }),
-//     });
-//     const result = await response.json();
-//     console.log(result);
-//   } else {
-//     alert("Passwords do not match");
-//   }
-// }
+updateBtn.addEventListener("click", () => updateDestination(id));
