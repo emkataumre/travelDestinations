@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Travel Destinations</title>
+    <script type="module" src="signUpPageScript.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="img/icon_globe.svg" />
+        <p>Travel Destinations</p>
+      </div>
+      <nav>
+        <a href="create" class="createBtn">Create</a>
+        <a href="login" class="loginBtn">Login</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Sign up</h1>
+
+      <form id="create-login-form" class="basic-form">
+        <div>
+          <label for="name">Name</label>
+          <input type="name" name="name" id="name" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <div>
+          <label for="repeatPassword">Repeat password</label>
+          <input type="password" name="repeatPassword" id="repeatPassword" />
+        </div>
+        <div>
+          <button type="submit" class="createBtn" id="signUpBtn">
+            Sign up
+          </button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

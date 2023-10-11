@@ -56,12 +56,18 @@ h6 {
 header {
   color: white;
   background-color: var(--primary);
-  width: 100vw;
   padding: 1rem;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   font-size: 25px;
   font-weight: 500;
+}
+
+header div {
+  display: flex;
+  gap: 0.5rem;
 }
 
 /* Main */

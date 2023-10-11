@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>Travel Destinations</title>
-    <script type="module" src="script.js" defer></script>
+    <script type="module" src="loginPageScript.js" defer></script>
   </head>
   <body>
     <header>
@@ -21,18 +21,21 @@
       </nav>
     </header>
     <main>
-      <div class="destinations">
-        <h1>Destinations</h1>
-        <div id="template"></div>
-        <section class="buttonContainer">
-          <a href="form">
-            <button class="mainBtn">
-              <img src="img/icon_plus.svg" alt="" />
-              <h3>Add entry</h3>
-            </button>
-          </a>
-        </section>
-      </div>
+      <h1>Login</h1>
+
+      <form id="create-login-form" class="basic-form">
+        <div>
+          <label for="name">Name</label>
+          <input type="name" name="name" id="name" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+        </div>
+        <div>
+          <button type="submit" id="loginBtn">Login</button>
+        </div>
+      </form>
     </main>
   </body>
 </html>
