@@ -15,18 +15,16 @@ const Destination = new Schema({
   },
   link: {
     type: String,
-    required: true,
   },
   arrivalDate: {
     type: Date,
-    required: true,
   },
   departureDate: {
     type: Date,
-    required: true,
   },
-  image: String,
-  description: String,
+
+  image: { type: String },
+  description: { type: String },
 });
 
 export default mongoose.model("Destination", Destination);

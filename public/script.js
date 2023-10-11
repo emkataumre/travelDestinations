@@ -20,6 +20,8 @@ if (window.location.pathname === "/") {
     style="background-image: url(${destination.image});"
     ></div>
   <div class="destinationInformation">
+  <a href="/update/${destination._id}" class="updateBtn">Update</a>
+  <button class="deleteBtn">Delete</button>
   <h6 class="destinationLocationContainer">
     <div class="destinationLocationName">
       <img

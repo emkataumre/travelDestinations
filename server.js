@@ -59,11 +59,27 @@ server.get("/create", (req, res) => {
   res.sendFile("pages/create.html", { root: __dirname });
 });
 
+server.get("/update", (req, res) => {
+  res.sendFile("pages/update.html", { root: __dirname });
+});
+
 //Get
 
 server.get("/api/destinations", async (req, res) => {
   await Destination.find()
     .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+server.get("/api/destination/:id", async (req, res) => {
+  await Destination.findOne({ _id: req.params.id }, req.body)
+    .then((result) => {
+      console.log(result);
       res.status(200).json(result);
     })
     .catch((err) => {
@@ -180,26 +196,3 @@ server.delete("/api/destination/:id", async (req, res) => {
       res.status(500).json(err);
     });
 });
-
-function generateJWT() {
-  const ExtractJwt = passportJWT.ExtractJwt;
-  const JwtStrategy = passportJWT.Strategy;
-  const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.jwt_secret,
-  };
-  const strategy = new JwtStrategy(jwtOptions, async function (
-    jwt_payload,
-    next
-  ) {
-    const user = await User.findOne({ _id: jwt_payload._id });
-    console.log("user found", user);
-    if (user) {
-      next(null, user);
-    } else {
-      next(null, false);
-    }
-  });
-  passport.use(strategy);
-  app.use(passport.initialize());
-}
