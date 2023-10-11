@@ -143,6 +143,48 @@ main {
   gap: 1rem;
 }
 
+button,
+a {
+  cursor: pointer;
+}
+
+.loginBtn,
+.createBtn {
+  color: #fff;
+  padding: 7px 10px;
+  font-size: medium;
+  border-radius: 10px;
+  min-width: 108px;
+  width: fit-content;
+  border: none;
+}
+
+.loginBtn {
+  background-color: #03a9f4;
+}
+
+.createBtn {
+  color: #03a9f4;
+  background-color: #fff;
+}
+
+.loginBtn:hover {
+  background-color: #4cc4fc;
+}
+
+.createBtn:hover {
+  background-color: #03a9f4;
+  color: #fff;
+}
+
+button.loginBtn,
+button.createBtn {
+  place-self: center;
+}
+
+button.createBtn {
+  border: 2px solid #03a9f4;
+}
 .mainBtn,
 .secondaryBtn {
   display: flex;
@@ -191,6 +233,30 @@ main {
 
 /* Form */
 
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 5rem;
+}
+
+.loginForm div {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm div input {
+  width: 300px;
+  height: 40px;
+  box-shadow: 0px 2px 2px 0px #00000040;
+  border-top: 1px solid #ff8a50;
+  border-left: 1px solid #ff8a50;
+  border-bottom: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-radius: 6px;
+  padding-left: 13px;
+}
+
 .destinationForm div {
   margin-bottom: 24px;
 }
@@ -200,7 +266,8 @@ main {
   flex-direction: column;
 }
 
-.destinationForm div label {
+.destinationForm div label,
+.loginForm div label {
   font-size: 10.24px;
   line-height: 15.36px;
   font-weight: 400;
