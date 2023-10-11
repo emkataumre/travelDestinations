@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import passportJWT from "passport-jwt";
+dotenv.config();
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 const server = express();
@@ -16,6 +17,27 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(express.static("public"));
 server.use(cors());
+
+const ExtractJwt = passportJWT.ExtractJwt;
+const JwtStrategy = passportJWT.Strategy;
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.jwt_secret,
+};
+const strategy = new JwtStrategy(jwtOptions, async function (
+  jwt_payload,
+  next
+) {
+  const user = await User.findOne({ _id: jwt_payload._id });
+  console.log("user found", user);
+  if (user) {
+    next(null, user);
+  } else {
+    next(null, false);
+  }
+});
+passport.use(strategy);
+server.use(passport.initialize());
 
 mongoose.connect("mongodb://127.0.0.1:27017/travelDestination");
 
@@ -40,7 +62,7 @@ server.get("/create", (req, res) => {
 //Get
 
 server.get("/api/destinations", async (req, res) => {
-  await Destination.find({})
+  await Destination.find()
     .then((result) => {
       res.status(200).json(result);
     })
@@ -56,14 +78,24 @@ server.listen(3000, () => {
 
 //Post
 server.post("/api/auth/login", async (req, res) => {
-  await User.find({ name: req.body.name })
+  await User.findOne({ name: req.body.name })
     .exec()
-    .then((result) => {
+    .then(async (result) => {
       if (result.length !== 0) {
         //assign jwt token
-        res.status(200).json({ message: "Succesful" });
+        console.log(result);
+        if (await result.isValidPassword(req.body.password)) {
+          const generatedToken = jwt.sign(
+            { _id: result._id },
+            process.env.jwt_secret
+          );
+          res.status(200).json({ token: generatedToken, status: "Success" });
+          return;
+        } else {
+          res.status(500).json({ error: "Failed to login", status: "Failure" });
+        }
       } else {
-        res.status(409).json({ error: "User not found" });
+        res.status(409).json({ error: "User not found", status: "Failure" });
       }
     })
     .catch((err) => {

@@ -13,6 +13,12 @@ async function loginUser(event) {
   });
   const result = await response.json();
   console.log(result);
+  if (result.status === "Success") {
+    localStorage.setItem("token", result.token);
+    window.location.replace("/");
+  } else {
+    alert(result.error);
+  }
 }
 
 loginBtn.addEventListener("click", loginUser);
