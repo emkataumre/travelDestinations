@@ -1,4 +1,4 @@
-import { updateDestination } from "./utils.js";
+import { updateDestination } from "./api.js";
 
 const updateBtn = document.querySelector("#updateBtn");
 

@@ -1,7 +1,7 @@
-import { getDestinations } from "./api.js";
-import { deleteDestination } from "./utils.js";
+import { getDestinations, deleteDestination } from "./api.js";
 
 (async () => {
+  const token = localStorage.getItem("token");
   const destinations = await getDestinations();
 
   destinations.map((destination) => {
@@ -35,8 +35,11 @@ import { deleteDestination } from "./utils.js";
     </div>`;
 
     document.querySelector("#template").appendChild(section);
-
     const deleteBtn = section.querySelector(".deleteBtn");
+    const adminBtns = section.querySelector(".destinationAdminButtons");
+    if (!token) {
+      adminBtns.classList.add("hidden");
+    }
     deleteBtn.addEventListener("click", () =>
       deleteDestination(destination._id)
     );

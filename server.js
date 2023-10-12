@@ -58,10 +58,14 @@ server.get("/create", (req, res) => {
   res.sendFile("pages/create.html", { root: __dirname });
 });
 
-server.get("/update", (req, res) => {
-  if (!req.query.id) return res.send("No id provided");
-  res.sendFile("pages/update.html", { root: __dirname });
-});
+server.get(
+  "/update",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    if (!req.query.id) return res.send("No id provided");
+    res.sendFile("pages/update.html", { root: __dirname });
+  }
+);
 
 //Get
 server.get("/api/destinations", async (req, res) => {
@@ -163,28 +167,36 @@ server.post("/api/destination", async (req, res) => {
 });
 
 //Put
-server.put("/api/destination/:id", async (req, res) => {
-  Destination.updateOne({ _id: req.params.id }, req.body)
-    .then((result) => {
-      res.status(201).json({ status: "Successful", result });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ status: "Failure", error: err.message });
-    });
-});
+server.put(
+  "/api/destination/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    Destination.updateOne({ _id: req.params.id }, req.body)
+      .then((result) => {
+        res.status(201).json({ status: "Successful", result });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ status: "Failure", error: err.message });
+      });
+  }
+);
 
 //Delete
-server.delete("/api/destination/:id", async (req, res) => {
-  await Destination.deleteOne({ _id: req.params.id })
-    .then((result) => {
-      res.status(201).json({ status: "Successful", result });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ status: "Failure", error: err.message });
-    });
-});
+server.delete(
+  "/api/destination/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Destination.deleteOne({ _id: req.params.id })
+      .then((result) => {
+        res.status(201).json({ status: "Successful", result });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ status: "Failure", error: err.message });
+      });
+  }
+);
 
 server.listen(3000, () => {
   console.log(`Listening on port 3000`);
