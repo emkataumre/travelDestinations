@@ -41,7 +41,6 @@ server.use(passport.initialize());
 mongoose.connect("mongodb://127.0.0.1:27017/travelDestination");
 
 //Page rendering
-
 server.get("/", async (req, res) => {
   res.sendFile("pages/index.html", { root: __dirname });
 });
@@ -58,16 +57,12 @@ server.get("/create", (req, res) => {
   res.sendFile("pages/create.html", { root: __dirname });
 });
 
-server.get(
-  "/update",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    if (!req.query.id) return res.send("No id provided");
-    res.sendFile("pages/update.html", { root: __dirname });
-  }
-);
+server.get("/update", (req, res) => {
+  if (!req.query.id) return res.send("No id provided");
+  res.sendFile("pages/update.html", { root: __dirname });
+});
 
-//Get
+//API Get
 server.get("/api/destinations", async (req, res) => {
   await Destination.find()
     .then((result) => {
@@ -90,13 +85,12 @@ server.get("/api/destination/:id", async (req, res) => {
     });
 });
 
-//Post
+//API Post
 server.post("/api/auth/login", async (req, res) => {
   await User.findOne({ name: req.body.name })
     .exec()
     .then(async (result) => {
       if (result.length !== 0) {
-        //assign jwt token
         if (await result.isValidPassword(req.body.password)) {
           const generatedToken = jwt.sign(
             { _id: result._id },
@@ -166,7 +160,7 @@ server.post("/api/destination", async (req, res) => {
     });
 });
 
-//Put
+//API Put
 server.put(
   "/api/destination/:id",
   passport.authenticate("jwt", { session: false }),
@@ -182,7 +176,7 @@ server.put(
   }
 );
 
-//Delete
+//API Delete
 server.delete(
   "/api/destination/:id",
   passport.authenticate("jwt", { session: false }),

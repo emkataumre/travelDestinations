@@ -65,9 +65,10 @@ header {
   font-weight: 500;
 }
 
-header div {
+header a {
   display: flex;
   gap: 0.5rem;
+  color: white;
 }
 
 /* Main */
@@ -149,17 +150,17 @@ a {
 }
 
 .loginBtn,
+.logoutBtn,
 .createBtn {
   color: #fff;
   padding: 7px 10px;
   font-size: medium;
   border-radius: 10px;
-  min-width: 108px;
   width: fit-content;
   border: none;
 }
 
-.loginBtn {
+.loginBtn, .logoutBtn {
   background-color: #03a9f4;
 }
 
@@ -190,7 +191,6 @@ button.createBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 108px;
   width: fit-content;
   color: #fff;
   gap: 0.2rem;
@@ -341,4 +341,9 @@ button.createBtn {
 
 .shown {
   display: block;
+}
+
+.flex {
+  display: flex;
+  gap: 0.5rem;
 }

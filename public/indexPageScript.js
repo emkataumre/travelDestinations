@@ -1,7 +1,7 @@
 import { getDestinations, deleteDestination } from "./api.js";
 
 (async () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("jwtToken");
   const destinations = await getDestinations();
 
   destinations.map((destination) => {

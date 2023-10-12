@@ -12,9 +12,8 @@ async function loginUser(event) {
     body: JSON.stringify({ name, password }),
   });
   const result = await response.json();
-  console.log(result);
   if (result.status === "Success") {
-    localStorage.setItem("token", result.token);
+    localStorage.setItem("jwtToken", result.token);
     window.location.replace("/");
   } else {
     alert(result.error);

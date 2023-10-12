@@ -15,7 +15,6 @@ async function createUser(event) {
       body: JSON.stringify({ name, password }),
     });
     const result = await response.json();
-    console.log(result);
   } else {
     alert("Passwords do not match");
   }

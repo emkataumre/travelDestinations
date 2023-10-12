@@ -6,18 +6,24 @@
     <title>Form</title>
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="updatePageScript.js" defer></script>
+    <script type="module" src="script.js" defer></script>
   </head>
   <body>
     </head>
     <body>
       <header>
-        <div>
+        <a href="/">
           <img src="img/icon_globe.svg" />
           <p>Travel Destinations</p>
-        </div>
+        </a>
         <nav>
-          <a href="create" class="createBtn">Create</a>
-          <a href="login" class="loginBtn">Login</a>
+          <div id="notLoggedInBtns">
+            <a href="create" class="createBtn">Create</a>
+            <a href="login" class="loginBtn">Login</a>
+          </div>
+          <div id="loggedInBtns">
+            <button class="logoutBtn">Logout</button>
+          </div>
         </nav>
       </header>
       <main>

@@ -7,17 +7,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <title>Travel Destinations</title>
+    <script type="module" src="script.js" defer></script>
     <script type="module" src="signUpPageScript.js" defer></script>
   </head>
   <body>
     <header>
-      <div>
+      <a href="/">
         <img src="img/icon_globe.svg" />
         <p>Travel Destinations</p>
-      </div>
+      </a>
       <nav>
-        <a href="create" class="createBtn">Create</a>
-        <a href="login" class="loginBtn">Login</a>
+        <div id="notLoggedInBtns">
+          <a href="create" class="createBtn">Create</a>
+          <a href="login" class="loginBtn">Login</a>
+        </div>
+        <div id="loggedInBtns">
+          <button class="logoutBtn">Logout</button>
+        </div>
       </nav>
     </header>
     <main>
