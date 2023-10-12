@@ -29,7 +29,6 @@ const strategy = new JwtStrategy(jwtOptions, async function (
   next
 ) {
   const user = await User.findOne({ _id: jwt_payload._id });
-  console.log("user found", user);
   if (user) {
     next(null, user);
   } else {
@@ -42,7 +41,6 @@ server.use(passport.initialize());
 mongoose.connect("mongodb://127.0.0.1:27017/travelDestination");
 
 //Page rendering
-
 server.get("/", async (req, res) => {
   res.sendFile("pages/index.html", { root: __dirname });
 });
@@ -59,8 +57,12 @@ server.get("/create", (req, res) => {
   res.sendFile("pages/create.html", { root: __dirname });
 });
 
-//Get
+server.get("/update", (req, res) => {
+  if (!req.query.id) return res.send("No id provided");
+  res.sendFile("pages/update.html", { root: __dirname });
+});
 
+//API Get
 server.get("/api/destinations", async (req, res) => {
   await Destination.find()
     .then((result) => {
@@ -72,18 +74,23 @@ server.get("/api/destinations", async (req, res) => {
     });
 });
 
-server.listen(3000, () => {
-  console.log(`Listening on port 3000`);
+server.get("/api/destination/:id", async (req, res) => {
+  await Destination.findOne({ _id: req.params.id }, req.body)
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
-//Post
+//API Post
 server.post("/api/auth/login", async (req, res) => {
   await User.findOne({ name: req.body.name })
     .exec()
     .then(async (result) => {
       if (result.length !== 0) {
-        //assign jwt token
-        console.log(result);
         if (await result.isValidPassword(req.body.password)) {
           const generatedToken = jwt.sign(
             { _id: result._id },
@@ -116,7 +123,6 @@ server.post("/api/auth/signup", async (req, res) => {
         insertedUser
           .save()
           .then((result) => {
-            console.log(result);
             res.status(201).json(insertedUser);
           })
           .catch((err) => {
@@ -146,60 +152,46 @@ server.post("/api/destination", async (req, res) => {
   insertedDestination
     .save()
     .then((result) => {
-      console.log(result);
-      res.status(201).json(result);
+      res.status(201).json({ status: "Success", result });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json({ status: "Failure", error: err.message });
     });
 });
 
-//Put
+//API Put
+server.put(
+  "/api/destination/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    Destination.updateOne({ _id: req.params.id }, req.body)
+      .then((result) => {
+        res.status(201).json({ status: "Successful", result });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ status: "Failure", error: err.message });
+      });
+  }
+);
 
-server.put("/api/destination/:id", async (req, res) => {
-  await Destination.updateOne({ _id: req.params.id }, req.body)
-    .then((result) => {
-      console.log({ message: "Update successful", result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+//API Delete
+server.delete(
+  "/api/destination/:id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Destination.deleteOne({ _id: req.params.id })
+      .then((result) => {
+        res.status(201).json({ status: "Successful", result });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ status: "Failure", error: err.message });
+      });
+  }
+);
+
+server.listen(3000, () => {
+  console.log(`Listening on port 3000`);
 });
-
-//Delete
-
-server.delete("/api/destination/:id", async (req, res) => {
-  await Destination.deleteOne({ _id: req.params.id })
-    .then((result) => {
-      console.log({ message: "Delete successful", result });
-      res.status(200).json(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-function generateJWT() {
-  const ExtractJwt = passportJWT.ExtractJwt;
-  const JwtStrategy = passportJWT.Strategy;
-  const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.jwt_secret,
-  };
-  const strategy = new JwtStrategy(jwtOptions, async function (
-    jwt_payload,
-    next
-  ) {
-    const user = await User.findOne({ _id: jwt_payload._id });
-    console.log("user found", user);
-    if (user) {
-      next(null, user);
-    } else {
-      next(null, false);
-    }
-  });
-  passport.use(strategy);
-  app.use(passport.initialize());
-}
